@@ -1,0 +1,39 @@
+# @nocobase/plugin-yeastar-integration
+
+Yeastar P-Series Cloud Edition integration plugin for NocoBase CRM.
+
+## Features
+
+- Click-to-Call via Linkus Web Client
+- Screen Pop on incoming calls
+- Call logging with CDR capture
+- Real-time agent status monitoring
+- Queue metrics and wallboards
+- AI-powered post-call analytics
+- Lead auto-creation from unknown callers
+
+## Installation
+
+This plugin is part of the TCRM (Bank of Africa Kenya CRM) project.
+
+## Configuration
+
+Set the following environment variables:
+
+```
+YEASTAR_PBX_DOMAIN=your-pbx-domain.yeastar.cloud
+YEASTAR_API_KEY=your-api-key
+YEASTAR_WEBHOOK_SECRET=your-webhook-secret
+```
+
+## Webhook Endpoints
+
+Configure these webhooks in Yeastar PBX Admin Portal:
+
+- `/yeastar/webhook/call-ringing`
+- `/yeastar/webhook/call-answered`
+- `/yeastar/webhook/call-ended`
+- `/yeastar/webhook/call-missed`
+- `/yeastar/webhook/call-failed`
+- `/yeastar/webhook/agent-status`
+- `/yeastar/webhook/queue-metrics`
