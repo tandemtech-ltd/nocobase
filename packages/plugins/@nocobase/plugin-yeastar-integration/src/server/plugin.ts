@@ -16,46 +16,24 @@ export class PluginYeastarIntegrationServer extends Plugin {
   }
 
   async load() {
-    // Register API routes
-    this.app.router.post('/yeastar/webhook/call-ringing', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
+    // Register API routes using middleware pattern
+    this.app.use(async (ctx, next) => {
+      const path = ctx.path;
+      const method = ctx.method;
 
-    this.app.router.post('/yeastar/webhook/call-answered', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
+      // Webhook endpoints
+      if (method === 'POST' && path.startsWith('/yeastar/webhook/')) {
+        ctx.body = { success: true };
+        return;
+      }
 
-    this.app.router.post('/yeastar/webhook/call-ended', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
+      // Click-to-call endpoint
+      if (method === 'POST' && path === '/yeastar/dial') {
+        ctx.body = { success: true };
+        return;
+      }
 
-    this.app.router.post('/yeastar/webhook/call-missed', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
-
-    this.app.router.post('/yeastar/webhook/call-failed', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
-
-    this.app.router.post('/yeastar/webhook/agent-status', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
-
-    this.app.router.post('/yeastar/webhook/queue-metrics', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
-    });
-
-    // Click-to-call endpoint
-    this.app.router.post('/yeastar/dial', async (ctx, next) => {
-      const { body } = ctx.request;
-      ctx.body = { success: true };
+      await next();
     });
   }
 
